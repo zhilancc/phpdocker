@@ -1,0 +1,75 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
+
+    memcached:
+      image: memcached:alpine
+      container_name: lnmp-memcached
+
+    redis:
+      image: redis:alpine
+      container_name: lnmp-redis
+
+    mysql-80:
+      image: mysql:8.0
+      container_name: lnmp-mysql-80
+      working_dir: /application
+      volumes:
+        - .:/application
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=test
+        - MYSQL_USER=test
+        - MYSQL_PASSWORD=test
+      ports:
+        - "33060:3306"
+
+    mysql-57:
+      image: mysql:5.7
+      container_name: lnmp-mysql-57
+      working_dir: /application
+      volumes:
+        - .:/application
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=test
+        - MYSQL_USER=test
+        - MYSQL_PASSWORD=test
+      ports:
+        - "33061:3306"
+
+    webserver:
+      image: nginx:alpine
+      container_name: lnmp-webserver
+      working_dir: /application
+      volumes:
+          - .:/application
+          - ./phpdocker/nginx:/etc/nginx/conf.d
+      ports:
+       - "8080:80"
+
+    php-fpm-74:
+      image: zhilan/7.4-fpm:1.0.0
+      container_name: lnmp-php-fpm-74
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./phpdocker/php-fpm/74/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
+
+    php-fpm-72:
+      image: zhilan/7.2-fpm:1.0.0
+      container_name: lnmp-php-fpm-72
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./phpdocker/php-fpm/72/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+
+    php-fpm-56:
+      image: zhilan/5.6-fpm:1.0.0
+      container_name: lnmp-php-fpm-56
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./phpdocker/php-fpm/56/php-ini-overrides.ini:/etc/php/5.6/fpm/conf.d/99-overrides.ini
