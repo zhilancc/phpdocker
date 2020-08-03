@@ -51,7 +51,7 @@ services:
        - "8080:80"
 
     php-fpm-74:
-      image: zhilan/7.4-fpm:1.0.0
+      image: zhilan/php7.4-fpm
       container_name: lnmp-php-fpm-74
       working_dir: /application
       volumes:
@@ -59,7 +59,7 @@ services:
         - ./phpdocker/php-fpm/74/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
 
     php-fpm-72:
-      image: zhilan/7.2-fpm:1.0.0
+      image: zhilan/php7.2-fpm
       container_name: lnmp-php-fpm-72
       working_dir: /application
       volumes:
@@ -67,7 +67,7 @@ services:
         - ./phpdocker/php-fpm/72/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
 
     php-fpm-56:
-      image: zhilan/5.6-fpm:1.0.0
+      image: zhilan/php5.6-fpm
       container_name: lnmp-php-fpm-56
       working_dir: /application
       volumes:
