@@ -24,7 +24,7 @@ RUN apt-get update \
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 
-RUN install-php-extensions bcmath gd pdo_mysql sockets sysvmsg sysvsem sysvshm xdebug xmlrpc xsl yaml zip mysqli memcached mongodb redis xhprof soap shmop intl gettext pcntl exif
+RUN install-php-extensions bcmath gd pdo_mysql sockets sysvmsg sysvsem sysvshm xdebug xmlrpc xsl yaml zip mysqli memcached mongodb redis xhprof soap shmop intl gettext pcntl exif apcu
 
 RUN wget https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz -O swoole.tar.gz \
     && mkdir -p swoole \
