@@ -24,7 +24,7 @@ RUN apt-get update \
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 
-RUN install-php-extensions bcmath gd pdo_mysql sockets sysvmsg sysvsem sysvshm xdebug xmlrpc xsl yaml zip mysqli memcached mongodb redis xhprof soap shmop intl gettext pcntl exif apcu
+RUN install-php-extensions bcmath gd pdo_mysql sockets sysvmsg sysvsem sysvshm xdebug xmlrpc xsl yaml zip mysqli memcached mongodb redis xhprof soap shmop intl gettext pcntl exif apcu oci8
 
 RUN wget https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz -O swoole.tar.gz \
     && mkdir -p swoole \
@@ -39,6 +39,9 @@ RUN wget https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz 
     ) \
     && rm -r swoole \
     && docker-php-ext-enable swoole
+
+COPY ./deploy/swoole_loader72.so /usr/local/lib/php/extensions/swoole_loader72.so
+COPY ./conf/swoole_loader72.ini /usr/local/etc/php/conf.d/swoole_loader72.ini
 
 EXPOSE 9000
 
